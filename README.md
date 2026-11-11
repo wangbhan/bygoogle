@@ -81,7 +81,7 @@ npm start
 
 - `frontend/src/page.mjs` 包含导航、首屏、核心业务、三项服务详情、关于我们、案例、联系表单和页脚。
 - `frontend/src/content.mjs` 集中维护服务、能力卡片和案例内容。
-- `frontend/public` 包含样式、页面交互和本地图片。首屏插画按设计稿生成，其余配图从设计稿提取。
+- `frontend/public` 包含样式、页面交互和本地图片。首屏和 AI中转配图按官网视觉风格生成，其余配图从设计稿提取。
 - `POST /api/inquiries` 接收 `name`、`company`、`contact` 和 `message`，创建记录后返回 HTTP 201 与记录 ID。
 - PostgreSQL 的 `inquiries` 表存放咨询记录，数据库负责生成记录 ID 和提交时间。
 - 前端支持 `HOST`、`PORT` 和 `API_ORIGIN`。开发时可用 `npm run dev` 监听服务端代码改动。

@@ -36,7 +36,7 @@ function hero() {
     <section class="hero" id="home" aria-labelledby="hero-title">
       <div class="wrap hero-content">
         <h1 id="hero-title">让 <em>AI</em> 从技术走向价值</h1>
-        <p>迈谷科技为企业与创作者提供 AI咨询、AI短剧、AI算力的一体化服务，<br class="desktop-break">以领先的AI技术、专业的行业经验和稳定的算力基础，<br class="desktop-break">助力企业智能化升级与AI内容创新落地。</p>
+        <p>迈谷科技为企业与创作者提供 AI咨询、AI短剧和AI中转服务，<br class="desktop-break">帮助企业规划AI应用、制作数字内容，并接入所需的AI模型。</p>
         <div class="hero-actions">
           ${link('#services', '了解我们的服务', 'button button-primary')}
           <a class="button button-outline" href="#contact">联系商务</a>
@@ -54,11 +54,11 @@ function overview() {
     <section class="overview" id="services" aria-labelledby="services-title">
       <div class="wrap">
         <h2 class="overview-title" id="services-title"><span>核心业务</span></h2>
-        <p class="overview-intro">聚焦AI应用与基础能力，为企业与创作者提供从咨询、内容到算力的全链路服务</p>
+        <p class="overview-intro">面向企业与创作者，覆盖AI咨询、内容制作与模型接入</p>
         <div class="overview-grid">
-          ${services.map(({ id, title, summary }) => `
+          ${services.map(({ id, title, summary, overviewIcon = 'overview-' + id }) => `
             <article class="overview-card panel">
-              ${icon('overview-' + id)}
+              ${icon(overviewIcon)}
               <div><h3>${title}</h3><p>${summary}</p>${link('#' + id, '了解详情')}</div>
             </article>`).join('')}
         </div>
@@ -83,7 +83,30 @@ function service(item) {
           ? `<button class="service-art" type="button" data-case="drama" aria-label="查看 AI短剧案例">${illustration}</button>`
           : `<div class="service-art" aria-hidden="true">${illustration}</div>`}
         ${features(item.features)}
-        ${item.highlights ? features(item.highlights, 'highlights panel') : ''}
+      </div>
+    </section>`;
+}
+
+function relaySection(item) {
+  return `
+    <section class="service service-relay" id="relay" aria-labelledby="relay-title">
+      <div class="wrap relay-grid">
+        <div class="service-copy relay-copy">
+          ${heading(item.title, 'relay-title')}
+          <p class="relay-tagline">${item.tagline}</p>
+          <p class="service-description">${item.description}</p>
+          <div class="relay-actions">
+            <a class="button button-primary" href="#contact" data-topic="AI中转接入方案">${item.cta}${arrow}</a>
+            <button class="text-link" type="button" data-case="relay">查看接入示例${arrow}</button>
+          </div>
+        </div>
+        <figure class="relay-flow panel">
+          <img src="${asset('relay')}" alt="" width="1320" height="440" loading="lazy" decoding="async">
+          <figcaption>
+            <span>业务应用</span>${arrow}<strong>AI中转</strong>${arrow}<span>模型服务</span>
+          </figcaption>
+        </figure>
+        ${features(item.features, 'relay-features')}
       </div>
     </section>`;
 }
@@ -95,7 +118,7 @@ function about() {
         <div class="about-copy">
           ${heading('关于迈谷科技', 'about-title')}
           <p>迈谷科技有限公司（品牌：迈谷科技，英文：MAIGU TECHNOLOGY）是一家专注于AI技术应用与创新服务的科技公司，致力于将领先的人工智能技术转化为可落地的业务价值。</p>
-          <p>公司业务覆盖 AI咨询、AI数字内容创作（包括AI短剧）与AI算力服务，为企业客户、内容创作者及各行业合作伙伴提供从战略规划、内容生产到算力支撑的全链路解决方案，推动AI在产业与内容领域的规模化应用。</p>
+          <p>公司业务覆盖 AI咨询、AI数字内容创作（包括AI短剧）与AI中转，为企业客户、内容创作者和行业伙伴提供从应用规划、内容生产到模型接入的服务。</p>
         </div>
         <div class="about-art" aria-hidden="true"><img src="${asset('mountains')}" alt="" loading="lazy"></div>
         ${features(strengths)}
@@ -109,7 +132,7 @@ function caseStudies() {
       <div class="wrap">
         <div class="cases-heading">
           ${heading('案例展示', 'cases-title')}
-          <p>以场景化实践验证AI价值，助力不同行业实现业务创新</p>
+          <p>了解AI在企业咨询、短剧制作和模型接入中的应用</p>
           <button class="text-link" type="button" data-case="all">查看全部案例${arrow}</button>
         </div>
         <div class="case-grid">
@@ -150,7 +173,7 @@ function contact() {
           </div>
           ${field('contact', '联系方式', 'maxlength="160" placeholder="请输入手机号或邮箱"')}
           <label class="field">需求描述<span aria-hidden="true"> *</span>
-            <textarea name="message" required maxlength="2000" rows="3" placeholder="例如：AI咨询、AI短剧制作、算力服务、合作意向等"></textarea>
+            <textarea name="message" required maxlength="2000" rows="3" placeholder="例如：AI咨询、AI短剧制作、AI中转接入、合作意向等"></textarea>
           </label>
           <button class="button button-primary submit-button" type="submit">提交需求${arrow}</button>
           <p class="form-status" role="status" aria-live="polite"></p>
@@ -187,7 +210,7 @@ export function renderPage() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="迈谷科技为企业与创作者提供 AI咨询、AI短剧和AI算力服务。">
+  <meta name="description" content="迈谷科技为企业与创作者提供 AI咨询、AI短剧和AI中转服务。">
   <meta name="theme-color" content="#f4faff">
   <title>迈谷科技 · 让 AI 从技术走向价值</title>
   <link rel="icon" href="/assets/icon-overview-consulting.webp" type="image/webp">
@@ -201,7 +224,7 @@ export function renderPage() {
   <main id="main">
     ${hero()}
     ${overview()}
-    ${services.map(service).join('')}
+    ${services.map(item => item.id === 'relay' ? relaySection(item) : service(item)).join('')}
     ${about()}
     ${caseStudies()}
     ${contact()}
