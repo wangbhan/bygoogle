@@ -59,6 +59,8 @@ export const strengths = [
   ['heart', '持续服务', '从方案规划、实施再到优化迭代，提供长期、稳定的服务支持。'],
 ];
 
+export const relayExampleUrl = 'https://api.bygoogle.cc/';
+
 export const cases = [
   {
     id: 'consulting',
@@ -85,9 +87,6 @@ export const cases = [
     title: '多模型统一接入示例',
     alt: '开发工作站屏幕上的应用、网关与模型路由示意',
     summary: '以企业知识助手为例，通过一个接口处理问答、摘要和长文分析，并按应用统计用量。',
-    details: [
-      ['接入方式', '知识助手沿用同一个请求入口。中转层按任务匹配模型，例如将日常问答交给响应较快的模型，将长文分析交给支持长上下文的模型。'],
-      ['用量管理', '为不同应用分配密钥和配额，按模型查看调用量与 Token 用量，便于定位异常消耗并调整预算。'],
-    ],
+    url: relayExampleUrl,
   },
 ];

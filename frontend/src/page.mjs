@@ -1,4 +1,4 @@
-import { cases, navigation, services, strengths } from './content.mjs';
+import { cases, navigation, relayExampleUrl, services, strengths } from './content.mjs';
 
 const arrow = '<span class="arrow" aria-hidden="true">→</span>';
 const asset = name => '/assets/' + name + '.webp';
@@ -97,7 +97,7 @@ function relaySection(item) {
           <p class="service-description">${item.description}</p>
           <div class="relay-actions">
             <a class="button button-primary" href="#contact" data-topic="AI中转接入方案">${item.cta}${arrow}</a>
-            <button class="text-link" type="button" data-case="relay">查看接入示例${arrow}</button>
+            ${link(relayExampleUrl, '查看接入示例')}
           </div>
         </div>
         <figure class="relay-flow panel">
@@ -136,11 +136,13 @@ function caseStudies() {
           <button class="text-link" type="button" data-case="all">查看全部案例${arrow}</button>
         </div>
         <div class="case-grid">
-          ${cases.map(({ id, alt, title, summary }) => `
+          ${cases.map(({ id, alt, title, summary, url }) => `
             <article class="case-card panel">
               <img src="${asset('case-' + id)}" alt="${alt}" loading="lazy" decoding="async">
               <div><h3>${title}</h3><p>${summary}</p>
-                <button class="text-link" type="button" data-case="${id}" aria-label="查看详情：${title}">查看详情${arrow}</button>
+                ${url
+                  ? link(url, '查看接入示例')
+                  : `<button class="text-link" type="button" data-case="${id}" aria-label="查看详情：${title}">查看详情${arrow}</button>`}
               </div>
             </article>`).join('')}
         </div>
@@ -160,9 +162,9 @@ function contact() {
           ${heading('联系我们', 'contact-title')}
           <p>欢迎与迈谷科技取得联系，<br>获取产品方案、合作咨询或定制服务，我们将尽快与您沟通。</p>
           <ul class="contact-links">
-            <li>${icon('mail')}<span>邮箱</span><a href="mailto:business@maigu-tech.com">business@maigu-tech.com</a></li>
+            <li>${icon('mail')}<span>邮箱</span><a href="mailto:602125218@qq.com">602125218@qq.com</a></li>
             <li>${icon('phone')}<span>电话</span><a href="tel:4008887626">400-888-7626</a></li>
-            <li>${icon('wechat')}<span>微信/商务合作</span> MAIGU-Tech</li>
+            <li>${icon('wechat')}<span>微信/商务合作</span> wang602125218</li>
           </ul>
         </div>
         <div class="contact-art" aria-hidden="true"><img src="${asset('map')}" alt="" loading="lazy"></div>
@@ -191,11 +193,13 @@ function caseDialog() {
       </div>
       <div class="dialog-body"></div>
     </dialog>
-    <template id="case-all"><div class="case-list">${cases.map(({ id, title, summary }) => `
-      <button class="case-list-item" type="button" data-case="${id}">
-        <strong>${title}${arrow}</strong><span>${summary}</span>
-      </button>`).join('')}</div></template>
-    ${cases.map(({ id, alt, title, summary, details }) => `
+    <template id="case-all"><div class="case-list">${cases.map(({ id, title, summary, url }) => {
+      const item = `<strong>${title}${arrow}</strong><span>${summary}</span>`;
+      return url
+        ? `<a class="case-list-item" href="${url}">${item}</a>`
+        : `<button class="case-list-item" type="button" data-case="${id}">${item}</button>`;
+    }).join('')}</div></template>
+    ${cases.filter(({ url }) => !url).map(({ id, alt, title, summary, details }) => `
       <template id="case-${id}" data-title="${title}">
         <img class="dialog-image" src="${asset('case-' + id)}" alt="${alt}">
         <p>${summary}</p>
